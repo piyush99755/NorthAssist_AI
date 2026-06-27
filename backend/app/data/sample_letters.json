@@ -1,0 +1,81 @@
+[
+  {
+    "id": "odsp-decision",
+    "letter_type": "ODSP",
+    "match_patterns": ["ontario disability support program", "odsp", "disability support"],
+    "summary": "This letter is about your Ontario Disability Support Program (ODSP) application or benefit status.",
+    "key_points": [
+      "The letter confirms a decision regarding your ODSP eligibility or benefit amount.",
+      "ODSP provides monthly income support and may include health and employment supports.",
+      "If approved, your benefit amount is based on your household size, shelter costs, and other income."
+    ],
+    "action_items": [
+      "Review the decision date and any conditions listed in the letter.",
+      "If you disagree with the decision, you have 30 days to request an internal review.",
+      "Contact your local ODSP office if you need clarification or want to report a change in circumstances."
+    ],
+    "deadlines": [
+      "Internal review request: within 30 days of the decision date shown on the letter."
+    ]
+  },
+  {
+    "id": "ei-decision",
+    "letter_type": "EI",
+    "match_patterns": ["employment insurance", "assurance-emploi", "ei benefit", "service canada"],
+    "summary": "This letter relates to your Employment Insurance (EI) claim with Service Canada.",
+    "key_points": [
+      "The letter may confirm approval, payment details, or a decision about your EI claim.",
+      "You must complete bi-weekly reports to continue receiving EI payments.",
+      "Your benefit rate is typically 55% of your average insurable weekly earnings, up to a maximum."
+    ],
+    "action_items": [
+      "Check whether your claim was approved, denied, or requires additional information.",
+      "If approved, set up direct deposit and complete your first bi-weekly report on time.",
+      "If denied, review the reason and consider requesting a reconsideration within 30 days."
+    ],
+    "deadlines": [
+      "Bi-weekly reports: due every two weeks while receiving benefits.",
+      "Reconsideration request: within 30 days of the decision date."
+    ]
+  },
+  {
+    "id": "tax-notice",
+    "letter_type": "CRA",
+    "match_patterns": ["canada revenue agency", "notice of assessment", "revenue agency", "tax return", "cra"],
+    "summary": "This is a Canada Revenue Agency (CRA) notice about your tax return or account.",
+    "key_points": [
+      "A Notice of Assessment summarizes the results of your tax return processing.",
+      "It shows any refund owed to you or balance you need to pay.",
+      "The letter may include information about benefits like the Canada Child Benefit or GST/HST credit."
+    ],
+    "action_items": [
+      "Compare the assessment to your filed tax return for accuracy.",
+      "If you owe money, note the payment due date to avoid interest charges.",
+      "Keep the notice for your records and update any benefit applications that require proof of income."
+    ],
+    "deadlines": [
+      "Payment due date: shown on the notice if a balance is owed.",
+      "Objection period: 90 days from the date of the assessment to file a formal objection."
+    ]
+  },
+  {
+    "id": "rent-subsidy",
+    "letter_type": "Housing",
+    "match_patterns": ["rent-geared-to-income", "social housing", "housing subsidy", "rent subsidy", "rgi"],
+    "summary": "This letter concerns your rent-geared-to-income (RGI) or social housing application or tenancy.",
+    "key_points": [
+      "RGI housing sets your rent at approximately 30% of your household's gross monthly income.",
+      "You must report income changes to your housing provider to keep your rent accurate.",
+      "Waitlist placement or unit offers depend on local social housing availability."
+    ],
+    "action_items": [
+      "Confirm whether this is an application update, waitlist notice, or unit offer.",
+      "If offered a unit, respond by the deadline or you may lose your place on the waitlist.",
+      "Gather required documents (income proof, ID) if your application is being processed."
+    ],
+    "deadlines": [
+      "Unit offer response: typically 48–72 hours as stated in the letter.",
+      "Annual income review: due by the date specified by your housing provider."
+    ]
+  }
+]

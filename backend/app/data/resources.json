@@ -1,0 +1,122 @@
+[
+  {
+    "id": "tb-food-bank",
+    "name": "Regional Food Distribution Association",
+    "description": "Coordinates food bank services and meal programs across Thunder Bay and Northwestern Ontario.",
+    "category": "food",
+    "city": "Thunder Bay",
+    "address": "570 Fort William Rd, Thunder Bay, ON P7B 2Z3",
+    "phone": "807-623-6425",
+    "url": "https://www.rfda.ca"
+  },
+  {
+    "id": "tb-shelter",
+    "name": "Salvation Army Bayside Mission",
+    "description": "Emergency shelter, meals, and support services for individuals experiencing homelessness.",
+    "category": "housing",
+    "city": "Thunder Bay",
+    "address": "330 Ogden Ave, Thunder Bay, ON P7A 1V1",
+    "phone": "807-345-8231",
+    "url": "https://www.salvationarmy.ca"
+  },
+  {
+    "id": "tb-mental-health",
+    "name": "Canadian Mental Health Association — Thunder Bay",
+    "description": "Community mental health services including counselling, crisis support, and housing assistance.",
+    "category": "mental health",
+    "city": "Thunder Bay",
+    "address": "1090 Memorial Ave, Thunder Bay, ON P7B 4A3",
+    "phone": "807-345-5564",
+    "url": "https://cmha.ca/thunder-bay"
+  },
+  {
+    "id": "tb-employment",
+    "name": "YES Employment Services",
+    "description": "Employment counselling, job search support, and skills training for Thunder Bay residents.",
+    "category": "employment",
+    "city": "Thunder Bay",
+    "address": "435 James St S, Thunder Bay, ON P7E 1H6",
+    "phone": "807-623-5511",
+    "url": "https://www.yesthunderbay.ca"
+  },
+  {
+    "id": "sud-food-bank",
+    "name": "Sudbury Food Bank",
+    "description": "Provides food hampers and referrals to community meal programs in Greater Sudbury.",
+    "category": "food",
+    "city": "Sudbury",
+    "address": "110 Larch St, Sudbury, ON P3E 5P7",
+    "phone": "705-671-9663",
+    "url": "https://www.sudburyfoodbank.ca"
+  },
+  {
+    "id": "sud-womens",
+    "name": "Sudbury Women's Centre",
+    "description": "Support services for women including counselling, referrals, and community resources.",
+    "category": "support",
+    "city": "Sudbury",
+    "address": "88 Elm St, Sudbury, ON P3C 1R6",
+    "phone": "705-673-1910",
+    "url": "https://www.sudburywc.ca"
+  },
+  {
+    "id": "ssm-employment",
+    "name": "Employment Solutions — Sault Ste. Marie",
+    "description": "Employment Ontario services including job matching, training, and career counselling.",
+    "category": "employment",
+    "city": "Sault Ste. Marie",
+    "address": "477 Queen St E, Sault Ste. Marie, ON P6A 2A4",
+    "phone": "705-949-2300",
+    "url": "https://www.employmentsolutions.ca"
+  },
+  {
+    "id": "ssm-mental-health",
+    "name": "Canadian Mental Health Association — Sault Ste. Marie",
+    "description": "Mental health and addictions support, peer programs, and community wellness services.",
+    "category": "mental health",
+    "city": "Sault Ste. Marie",
+    "address": "386 Queen St E, Sault Ste. Marie, ON P6A 1Z9",
+    "phone": "705-759-5989",
+    "url": "https://cmha.ca/sault-ste-marie"
+  },
+  {
+    "id": "north-bay-food",
+    "name": "North Bay Food Bank",
+    "description": "Emergency food assistance and community kitchen referrals for North Bay residents.",
+    "category": "food",
+    "city": "North Bay",
+    "address": "1201 Cassells St, North Bay, ON P1B 4A2",
+    "phone": "705-495-5685",
+    "url": "https://www.northbayfoodbank.ca"
+  },
+  {
+    "id": "north-bay-youth",
+    "name": "Nipissing Transition House",
+    "description": "Crisis shelter and support for women and children experiencing violence or housing instability.",
+    "category": "housing",
+    "city": "North Bay",
+    "address": "North Bay, ON",
+    "phone": "705-472-4555",
+    "url": "https://www.nipissingtransitionhouse.ca"
+  },
+  {
+    "id": "timmins-food",
+    "name": "Timmins Food Bank",
+    "description": "Food hamper program serving individuals and families in the Timmins area.",
+    "category": "food",
+    "city": "Timmins",
+    "address": "88 Algonquin Blvd E, Timmins, ON P4N 1A5",
+    "phone": "705-268-8381",
+    "url": "https://www.timminsfoodbank.ca"
+  },
+  {
+    "id": "timmins-indigenous",
+    "name": "Métis Nation of Ontario — Timmins Office",
+    "description": "Cultural, employment, and community support services for Métis citizens in the Timmins region.",
+    "category": "support",
+    "city": "Timmins",
+    "address": "32 Mountjoy St N, Timmins, ON P4N 5N9",
+    "phone": "705-268-6262",
+    "url": "https://www.metisnation.org"
+  }
+]

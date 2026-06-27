@@ -1,0 +1,82 @@
+[
+  {
+    "id": "ei-regular",
+    "name": "Employment Insurance (EI) Regular Benefits",
+    "description": "Temporary financial assistance for eligible workers who lose their job through no fault of their own.",
+    "eligibility": "Worked enough insurable hours in the last 52 weeks; lost employment through no fault of your own; ready and willing to work.",
+    "url": "https://www.canada.ca/en/services/benefits/ei/ei-regular-benefit.html",
+    "keywords": ["job loss", "unemployed", "laid off", "fired", "employment", "work", "income"]
+  },
+  {
+    "id": "ow",
+    "name": "Ontario Works (OW)",
+    "description": "Financial and employment assistance for people in financial need who are willing to participate in employment activities.",
+    "eligibility": "Ontario resident in financial need; willing to participate in employment assistance activities.",
+    "url": "https://www.ontario.ca/page/ontario-works",
+    "keywords": ["job loss", "unemployed", "financial need", "income support", "poverty", "low income"]
+  },
+  {
+    "id": "odsp",
+    "name": "Ontario Disability Support Program (ODSP)",
+    "description": "Income and employment supports for people with disabilities who are in financial need.",
+    "eligibility": "Ontario resident aged 18+ with a substantial physical or mental impairment expected to last one year or more; in financial need.",
+    "url": "https://www.ontario.ca/page/ontario-disability-support-program",
+    "keywords": ["disability", "disabled", "chronic illness", "mental health", "unable to work", "odsp"]
+  },
+  {
+    "id": "ccb",
+    "name": "Canada Child Benefit (CCB)",
+    "description": "Tax-free monthly payment to help eligible families with the cost of raising children under 18.",
+    "eligibility": "Primary caregiver of a child under 18; resident of Canada for tax purposes; filed taxes.",
+    "url": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/canada-child-benefit-overview.html",
+    "keywords": ["baby", "child", "children", "newborn", "parent", "pregnancy", "family"]
+  },
+  {
+    "id": "on-baby",
+    "name": "Ontario Baby Bundle",
+    "description": "Support for new and expecting parents including prenatal vitamins, newborn essentials, and parenting resources.",
+    "eligibility": "Expecting or new parents in Ontario.",
+    "url": "https://www.ontario.ca/page/ontario-baby-bundle",
+    "keywords": ["baby", "newborn", "pregnancy", "expecting", "parent", "child"]
+  },
+  {
+    "id": "on-rent-geared",
+    "name": "Rent-Geared-to-Income Housing",
+    "description": "Subsidized housing where rent is based on 30% of household income through local social housing providers.",
+    "eligibility": "Household income below local limits; on or eligible for social housing waitlist in your community.",
+    "url": "https://www.ontario.ca/page/rent-geared-income-housing",
+    "keywords": ["housing", "rent", "homeless", "eviction", "affordable housing", "shelter"]
+  },
+  {
+    "id": "homelessness-prevention",
+    "name": "Homelessness Prevention Program",
+    "description": "Emergency financial assistance to help prevent eviction or secure stable housing in Northern Ontario communities.",
+    "eligibility": "At risk of homelessness or facing eviction; Ontario resident in financial need.",
+    "url": "https://www.ontario.ca/page/homelessness-prevention-program",
+    "keywords": ["housing", "rent", "eviction", "homeless", "shelter", "crisis"]
+  },
+  {
+    "id": "ohip",
+    "name": "Ontario Health Insurance Plan (OHIP)",
+    "description": "Covers medically necessary hospital and physician services for Ontario residents.",
+    "eligibility": "Ontario resident; physically present in Ontario for at least 153 days in any 12-month period.",
+    "url": "https://www.ontario.ca/page/ohip",
+    "keywords": ["health", "medical", "doctor", "hospital", "newcomer", "immigrant", "moved"]
+  },
+  {
+    "id": "seniors-gis",
+    "name": "Guaranteed Income Supplement (GIS)",
+    "description": "Monthly non-taxable benefit for Old Age Security recipients with low income.",
+    "eligibility": "Receiving OAS pension; low income as defined by Service Canada.",
+    "url": "https://www.canada.ca/en/services/benefits/publicpensions/cpp/old-age-security/guaranteed-income-supplement.html",
+    "keywords": ["senior", "retired", "retirement", "elderly", "pension", "old age"]
+  },
+  {
+    "id": "northern-ontario-heritage",
+    "name": "Northern Ontario Heritage Fund Corporation (NOHFC)",
+    "description": "Programs supporting job creation, business growth, and workforce development in Northern Ontario.",
+    "eligibility": "Businesses and organizations operating in Northern Ontario; varies by program.",
+    "url": "https://nohfc.ca/en/programs",
+    "keywords": ["business", "entrepreneur", "startup", "employment", "northern ontario", "job creation"]
+  }
+]
