@@ -7,7 +7,6 @@ from app.models.life_event import (
     RecommendedProgram,
     UserProfile,
 )
-from app.services.openai_client import chat_completion
 
 DATA_PATH = Path(__file__).resolve().parent.parent / "data" / "benefits.json"
 
@@ -78,21 +77,6 @@ def analyze_life_event(request: LifeEventAnalyzeRequest) -> LifeEventAnalyzeResp
     ]
 
     summary = _build_summary(request.life_event, programs, request.location)
-
-    ai_summary = chat_completion(
-        system_prompt=(
-            "You are a helpful assistant for Northern Ontario residents navigating "
-            "government benefits. Write a brief, plain-language summary (2-3 sentences) "
-            "about which programs may help. Do not invent programs not in the list."
-        ),
-        user_prompt=(
-            f"Life event: {request.life_event}\n"
-            f"Location: {request.location or 'Northern Ontario'}\n"
-            f"Matched programs: {[p.name for p in programs]}"
-        ),
-    )
-    if ai_summary:
-        summary = ai_summary.strip()
 
     return LifeEventAnalyzeResponse(
         life_event=request.life_event,
