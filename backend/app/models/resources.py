@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 
 class ResourceResult(BaseModel):
@@ -21,3 +21,6 @@ class ResourceSearchResponse(BaseModel):
     filters: ResourceSearchFilters
     results: list[ResourceResult]
     total: int
+    is_fallback: bool = False
+    fallback_message: str | None = None
+    suggested_next_steps: list[str] = []

@@ -38,7 +38,9 @@ export function Resources({ onRestart, defaultCity }: { onRestart: () => void; d
       <div className="inline-flex items-center gap-1.5 rounded-full bg-secondary/15 px-3 py-1 text-xs font-medium text-secondary">
         <Sparkles className="h-3.5 w-3.5" /> Curated for your situation
       </div>
-      <h1 className="mt-3 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">Local Resources Near You</h1>
+      <h1 className="mt-3 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+        {data?.is_fallback ? "Suggested Services Near You" : "Local Resources Near You"}
+      </h1>
       <p className="mt-2 text-sm text-muted-foreground sm:text-base">
         Based on your situation, these organizations may be able to help.
       </p>
@@ -72,10 +74,29 @@ export function Resources({ onRestart, defaultCity }: { onRestart: () => void; d
       </div>
 
       {error && (
-        <div className="mt-8 flex items-center justify-between rounded-2xl border border-destructive/30 bg-destructive/5 p-4 text-sm text-destructive">
-          <div className="flex items-center gap-2"><AlertCircle className="h-4 w-4" /> Failed to load resources.</div>
-          <Button size="sm" variant="outline" onClick={() => refetch()}>Retry</Button>
+        <div className="mt-8 rounded-2xl border border-border bg-card p-5 text-sm">
+          <div className="flex items-center gap-2 font-medium text-foreground">
+            <AlertCircle className="h-4 w-4 text-warning" /> Couldn't reach the server — showing recommended services
+          </div>
+          <p className="mt-2 text-muted-foreground">Dial 211 for live local referrals, or retry below.</p>
+          <Button size="sm" variant="outline" className="mt-3" onClick={() => refetch()}>Retry</Button>
         </div>
+      )}
+
+      {data?.is_fallback && data.fallback_message && (
+        <div className="mt-6 rounded-2xl border border-primary/20 bg-primary/5 p-4 text-sm text-foreground">
+          <Sparkles className="mb-1 inline h-4 w-4 text-primary" /> {data.fallback_message}
+        </div>
+      )}
+
+      {data?.suggested_next_steps && data.suggested_next_steps.length > 0 && data.is_fallback && (
+        <ul className="mt-3 space-y-1 text-sm text-muted-foreground">
+          {data.suggested_next_steps.map((step, i) => (
+            <li key={i} className="flex gap-2">
+              <span className="text-primary">→</span> {step}
+            </li>
+          ))}
+        </ul>
       )}
 
       {isLoading ? (
@@ -105,11 +126,6 @@ export function Resources({ onRestart, defaultCity }: { onRestart: () => void; d
               </div>
             );
           })}
-          {!isLoading && visible.length === 0 && (
-            <div className="md:col-span-2 lg:col-span-3 rounded-2xl border border-border bg-card p-8 text-center text-sm text-muted-foreground">
-              No resources match your search. Try a different city or category.
-            </div>
-          )}
         </div>
       )}
 

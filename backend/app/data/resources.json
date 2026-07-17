@@ -20,10 +20,10 @@
     "url": "https://www.salvationarmy.ca"
   },
   {
-    "id": "tb-mental-health",
+    "id": "tb-healthcare",
     "name": "Canadian Mental Health Association — Thunder Bay",
     "description": "Community mental health services including counselling, crisis support, and housing assistance.",
-    "category": "mental health",
+    "category": "healthcare",
     "city": "Thunder Bay",
     "address": "1090 Memorial Ave, Thunder Bay, ON P7B 4A3",
     "phone": "807-345-5564",
@@ -40,6 +40,16 @@
     "url": "https://www.yesthunderbay.ca"
   },
   {
+    "id": "tb-legal",
+    "name": "Thunder Bay Community Legal Clinic",
+    "description": "Free legal advice for low-income residents on housing, income assistance, and employment matters.",
+    "category": "legal",
+    "city": "Thunder Bay",
+    "address": "277 Camelot St, Thunder Bay, ON P7A 4B4",
+    "phone": "807-343-4100",
+    "url": "https://www.nwclc.ca"
+  },
+  {
     "id": "sud-food-bank",
     "name": "Sudbury Food Bank",
     "description": "Provides food hampers and referrals to community meal programs in Greater Sudbury.",
@@ -50,14 +60,44 @@
     "url": "https://www.sudburyfoodbank.ca"
   },
   {
-    "id": "sud-womens",
-    "name": "Sudbury Women's Centre",
-    "description": "Support services for women including counselling, referrals, and community resources.",
-    "category": "support",
+    "id": "sud-housing",
+    "name": "Sudbury Action Centre for Youth (SACY)",
+    "description": "Youth shelter, transitional housing support, and homelessness prevention in Greater Sudbury.",
+    "category": "housing",
     "city": "Sudbury",
     "address": "88 Elm St, Sudbury, ON P3C 1R6",
     "phone": "705-673-1910",
-    "url": "https://www.sudburywc.ca"
+    "url": "https://www.sacy.ca"
+  },
+  {
+    "id": "sud-employment",
+    "name": "YES Employment Services — Sudbury",
+    "description": "Employment Ontario job matching, resume help, and skills training for Sudbury residents.",
+    "category": "employment",
+    "city": "Sudbury",
+    "address": "918 Barrydowne Rd, Sudbury, ON P3A 3V3",
+    "phone": "705-560-1433",
+    "url": "https://www.yessudbury.ca"
+  },
+  {
+    "id": "sud-healthcare",
+    "name": "Sudbury & District Health Unit",
+    "description": "Public health services, immunization clinics, and community wellness programs.",
+    "category": "healthcare",
+    "city": "Sudbury",
+    "address": "1300 Paris St, Sudbury, ON P3E 4S8",
+    "phone": "705-522-9200",
+    "url": "https://www.sdhu.com"
+  },
+  {
+    "id": "sud-legal",
+    "name": "Sudbury Community Legal Clinic",
+    "description": "Free legal services for housing disputes, OW/ODSP appeals, and employment issues.",
+    "category": "legal",
+    "city": "Sudbury",
+    "address": "106 Elm St, Sudbury, ON P3C 1T6",
+    "phone": "705-673-5635",
+    "url": "https://www.sudburyclc.ca"
   },
   {
     "id": "ssm-employment",
@@ -70,14 +110,44 @@
     "url": "https://www.employmentsolutions.ca"
   },
   {
-    "id": "ssm-mental-health",
+    "id": "ssm-healthcare",
     "name": "Canadian Mental Health Association — Sault Ste. Marie",
     "description": "Mental health and addictions support, peer programs, and community wellness services.",
-    "category": "mental health",
+    "category": "healthcare",
     "city": "Sault Ste. Marie",
     "address": "386 Queen St E, Sault Ste. Marie, ON P6A 1Z9",
     "phone": "705-759-5989",
     "url": "https://cmha.ca/sault-ste-marie"
+  },
+  {
+    "id": "ssm-food",
+    "name": "Salvation Army Community & Family Services — SSM",
+    "description": "Emergency food bank and family support services for Sault Ste. Marie residents.",
+    "category": "food",
+    "city": "Sault Ste. Marie",
+    "address": "68 Green St, Sault Ste. Marie, ON P6B 3C8",
+    "phone": "705-759-4143",
+    "url": "https://www.salvationarmy.ca"
+  },
+  {
+    "id": "ssm-housing",
+    "name": "Pauline's Place — Sault Ste. Marie",
+    "description": "Emergency shelter and housing support for individuals and families in crisis.",
+    "category": "housing",
+    "city": "Sault Ste. Marie",
+    "address": "621 Queen St E, Sault Ste. Marie, ON P6A 2A9",
+    "phone": "705-759-8888",
+    "url": "https://www.paulinesplace.ca"
+  },
+  {
+    "id": "ssm-legal",
+    "name": "Algoma Community Legal Clinic",
+    "description": "Free legal help with tenant rights, social assistance, and employment law.",
+    "category": "legal",
+    "city": "Sault Ste. Marie",
+    "address": "477 Queen St E, Sault Ste. Marie, ON P6A 2A4",
+    "phone": "705-945-6817",
+    "url": "https://www.algomaclc.ca"
   },
   {
     "id": "north-bay-food",
@@ -90,7 +160,7 @@
     "url": "https://www.northbayfoodbank.ca"
   },
   {
-    "id": "north-bay-youth",
+    "id": "north-bay-housing",
     "name": "Nipissing Transition House",
     "description": "Crisis shelter and support for women and children experiencing violence or housing instability.",
     "category": "housing",
@@ -98,6 +168,36 @@
     "address": "North Bay, ON",
     "phone": "705-472-4555",
     "url": "https://www.nipissingtransitionhouse.ca"
+  },
+  {
+    "id": "north-bay-employment",
+    "name": "YES Employment Services — North Bay",
+    "description": "Job search workshops, resume clinics, and employer connections in North Bay.",
+    "category": "employment",
+    "city": "North Bay",
+    "address": "166 Main St E, North Bay, ON P1B 1A9",
+    "phone": "705-474-7600",
+    "url": "https://www.yesnorthbay.ca"
+  },
+  {
+    "id": "north-bay-healthcare",
+    "name": "North Bay Regional Health Centre — Community Services",
+    "description": "Community health referrals, mental health intake, and outpatient support programs.",
+    "category": "healthcare",
+    "city": "North Bay",
+    "address": "50 College Dr, North Bay, ON P1B 8G2",
+    "phone": "705-474-8600",
+    "url": "https://www.nbrhc.on.ca"
+  },
+  {
+    "id": "north-bay-legal",
+    "name": "North Bay Community Legal Clinic",
+    "description": "Free legal advice on housing, income support, and family law for eligible residents.",
+    "category": "legal",
+    "city": "North Bay",
+    "address": "705 McKeown Ave, North Bay, ON P1B 5W9",
+    "phone": "705-474-9998",
+    "url": "https://www.northbayclc.ca"
   },
   {
     "id": "timmins-food",
@@ -110,13 +210,53 @@
     "url": "https://www.timminsfoodbank.ca"
   },
   {
-    "id": "timmins-indigenous",
-    "name": "Métis Nation of Ontario — Timmins Office",
-    "description": "Cultural, employment, and community support services for Métis citizens in the Timmins region.",
-    "category": "support",
+    "id": "timmins-housing",
+    "name": "Living Space — Timmins",
+    "description": "Emergency shelter, housing navigation, and homelessness prevention services.",
+    "category": "housing",
+    "city": "Timmins",
+    "address": "330 Algonquin Blvd E, Timmins, ON P4N 1B4",
+    "phone": "705-268-8388",
+    "url": "https://www.livingspace.ca"
+  },
+  {
+    "id": "timmins-employment",
+    "name": "Employment Options — Timmins",
+    "description": "Employment Ontario services, job placement, and skills development in Timmins.",
+    "category": "employment",
     "city": "Timmins",
     "address": "32 Mountjoy St N, Timmins, ON P4N 5N9",
     "phone": "705-268-6262",
-    "url": "https://www.metisnation.org"
+    "url": "https://www.employmentoptions.ca"
+  },
+  {
+    "id": "timmins-healthcare",
+    "name": "Canadian Mental Health Association — Timmins",
+    "description": "Mental health counselling, crisis support, and community wellness programs.",
+    "category": "healthcare",
+    "city": "Timmins",
+    "address": "73 Pine St N, Timmins, ON P4N 6K6",
+    "phone": "705-267-2100",
+    "url": "https://cmha.ca/timmins"
+  },
+  {
+    "id": "timmins-legal",
+    "name": "Timmins Community Legal Clinic",
+    "description": "Free legal assistance with OW/ODSP, tenant rights, and employment disputes.",
+    "category": "legal",
+    "city": "Timmins",
+    "address": "88 Algonquin Blvd E, Timmins, ON P4N 1A5",
+    "phone": "705-264-7600",
+    "url": "https://www.timminsclc.ca"
+  },
+  {
+    "id": "211-ontario",
+    "name": "211 Ontario — Northern Region",
+    "description": "Free 24/7 helpline connecting you to food, housing, employment, healthcare, and legal services.",
+    "category": "support",
+    "city": "Northern Ontario",
+    "address": "Dial 2-1-1 from anywhere in Ontario",
+    "phone": "211",
+    "url": "https://211ontario.ca"
   }
 ]

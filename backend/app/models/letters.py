@@ -11,3 +11,10 @@ class LetterExplainResponse(BaseModel):
     key_points: list[str]
     action_items: list[str]
     deadlines: list[str]
+    detected_program: str | None = None
+    detected_department: str | None = None
+    urgency_score: int = Field(default=0, ge=0, le=100)
+    urgency_label: str = "Standard"
+    extracted_dates: list[str] = []
+    extracted_phones: list[str] = []
+    requested_documents: list[str] = []

@@ -35,13 +35,11 @@ export function Landing({ onStartBenefits, onPickSituation, onStartLetter, onBro
               <Sparkles className="h-3.5 w-3.5" />
               Made for Northern Ontario residents
             </div>
-            <h1 className="mt-5 text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
-              Government support,
-              <br />
-              <span className="text-white/80">made human.</span>
+            <h1 className="mt-5 text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
+              Find Benefits, Understand Government Letters, and Access Local Support Across Northern Ontario.
             </h1>
             <p className="mt-5 max-w-xl text-base text-white/85 sm:text-lg">
-              Discover benefits you qualify for, understand confusing government letters, and find community resources near you — all in plain language.
+              Discover programs you qualify for, decode confusing official mail, and connect with community services near you — all in plain language.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
               <Button
@@ -152,8 +150,8 @@ export function Landing({ onStartBenefits, onPickSituation, onStartLetter, onBro
             tone="secondary"
             icon={<FileText className="h-5 w-5" />}
             title="Understand a Letter"
-            body="Upload a government letter or notice and get a plain-language explanation and next steps."
-            cta="Upload a document"
+            body="Paste a government letter or notice and get a plain-language explanation, urgency score, and next steps."
+            cta="Explain a letter"
             onClick={onStartLetter}
           />
           <FeatureCard

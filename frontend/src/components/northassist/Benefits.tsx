@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle2, ExternalLink, Sparkles, TrendingUp, Loader2, AlertCircle } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { analyzeLifeEvent, buildLifeEventRequest } from "@/lib/api";
+import { SupportPlan } from "@/components/northassist/SupportPlan";
 
 export function Benefits({
   onContinue,
@@ -104,12 +105,11 @@ export function Benefits({
               </div>
             </div>
           ))}
-          {data.recommended_programs.length === 0 && (
-            <div className="md:col-span-2 rounded-2xl border border-border bg-card p-6 text-sm text-muted-foreground">
-              No programs matched yet. Try refining your answers.
-            </div>
-          )}
         </div>
+      )}
+
+      {data && data.recommended_programs.length > 0 && (
+        <SupportPlan programs={data.recommended_programs} city={answers.city} situationId={situationId} />
       )}
     </div>
   );
