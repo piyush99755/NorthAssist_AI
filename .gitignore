@@ -216,3 +216,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Generated learning artifacts
+tmp/
+output/
+docs/*.docx
+docs/*.pdf
