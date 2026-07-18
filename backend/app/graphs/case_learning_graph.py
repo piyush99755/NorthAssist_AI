@@ -2,11 +2,15 @@ from typing import TypedDict
 
 from langgraph.graph import END, START, StateGraph
 
+from app.tools.benefit_tools import search_benefit_catalog
+
+
 class CaseState(TypedDict, total=False):
     user_message: str
     city: str | None
     employment_status: str | None
     missing_fields: list[str]
+    benefit_matches: list[dict]
     response: str
 
 
@@ -71,14 +75,21 @@ def ask_clarification(state: CaseState) -> dict:
     return {"response": questions[first_missing_field]}
 
 def search_benefits(state: CaseState) -> dict:
-    city = state["city"]
-    employment_status = state["employment_status"]
-    
+    tool_result = search_benefit_catalog.invoke(
+        {
+            "life_event": state["user_message"],
+            "location": state.get("city"),
+            "employment_status": state.get("employment_status"),
+        }
+    )
+    programs = tool_result["recommended_programs"]
+    program_names = [program["name"] for program in programs]
     return {
+        "benefit_matches": programs,
         "response": (
-            f"I have enough information to search for benefits. "
-            f"City: {city}. Employment status: {employment_status}."
-        )
+            "I found these potentially relevant programs: "
+            + ", ".join(program_names)
+        ),
     }
     
     
