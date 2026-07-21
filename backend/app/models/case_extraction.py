@@ -1,5 +1,5 @@
 from typing import Literal
-from pydantic import Field, BaseModel
+from pydantic import Field, BaseModel, ConfigDict
 
 
 EmploymentStatus = Literal[
@@ -11,9 +11,17 @@ EmploymentStatus = Literal[
     "disabled",
 ]
 
+ExtractionMethod = Literal[
+    "ollama",
+    "deterministic"
+]
+
 
 class ExtractedCase(BaseModel):
-     city: str | None = Field(
+    model_config = ConfigDict(extra="forbid")
+    
+    
+    city: str | None = Field(
         default=None,
         description=(
             "The Northern Ontario city explicitly mentioned by the user. "
@@ -21,7 +29,7 @@ class ExtractedCase(BaseModel):
         ),
     )
 
-     employment_status: EmploymentStatus | None = Field(
+    employment_status: EmploymentStatus | None = Field(
         default=None,
         description=(
             "The user's current employment status. "
@@ -30,3 +38,9 @@ class ExtractedCase(BaseModel):
             "Return null when the status cannot be determined."
         ),
     )
+    
+    
+class CaseExtractionResult(ExtractedCase):
+    extraction_method: ExtractionMethod
+    
+    warning: str | None = None

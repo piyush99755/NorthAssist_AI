@@ -1,4 +1,5 @@
 import json
+import re
 from pathlib import Path
 
 from app.models.life_event import (
@@ -16,10 +17,16 @@ def _load_benefits() -> list[dict]:
         return json.load(f)
 
 
+def _keyword_matches(keyword: str, text: str) -> bool:
+    """Match a complete word or phrase, not a substring inside another word."""
+    pattern = rf"(?<!\w){re.escape(keyword.lower())}(?!\w)"
+    return re.search(pattern, text) is not None
+
+
 def _score_benefit(benefit: dict, life_event_lower: str, profile: UserProfile | None) -> int:
     score = 0
     for keyword in benefit.get("keywords", []):
-        if keyword.lower() in life_event_lower:
+        if _keyword_matches(keyword, life_event_lower):
             score += 2
 
     if profile and profile.employment_status:

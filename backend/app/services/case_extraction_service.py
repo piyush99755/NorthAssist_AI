@@ -1,8 +1,11 @@
 import os
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_ollama import ChatOllama
-from app.models.case_extraction import ExtractedCase
+from app.models.case_extraction import (
+    ExtractedCase, CaseExtractionResult
+)
 
+DEFAULT_BASE_URL= "http://localhost:11434"
 DEFAULT_MODEL = "qwen3:4b-instruct"
 
 SUPPORTED_CITIES = [
@@ -11,6 +14,13 @@ SUPPORTED_CITIES = [
     "Timmins",
     "North Bay",
     "Sault Ste. Marie",
+]
+
+JOB_LOSS_PHRASES = [
+    "lost my job",
+    "laid off",
+    "unemployed",
+    "no longer working",
 ]
 
 SYSTEM_PROMPT = """
@@ -34,10 +44,10 @@ Rules:
 """.strip()
 
 def extract_case_with_ollama(user_message: str) -> ExtractedCase:
-    model_name = os.getenv("OLLAMA_MODEL", DEFAULT_MODEL)
-
+    
     model = ChatOllama(
-        model=model_name,
+        model=os.getenv("OLLAMA_MODEL", DEFAULT_MODEL),
+        base_url=os.getenv("OLLAMA_BASE_URL", DEFAULT_BASE_URL),
         temperature=0,
     )
     
@@ -58,3 +68,59 @@ def extract_case_with_ollama(user_message: str) -> ExtractedCase:
         raise TypeError("Ollama returned an unexpected extraction type.")
     
     return result
+
+def extract_case_deterministically(
+    user_message: str
+) -> ExtractedCase:
+    message_lower = user_message.lower()
+    
+    city = None
+    
+    for supported_city in SUPPORTED_CITIES:
+        if supported_city.lower() in message_lower:
+            city = supported_city
+            break
+        
+    employment_status = None
+    
+    if any(
+        phrase in message_lower
+        for phrase in JOB_LOSS_PHRASES
+    ):
+        employment_status = "unemployed"
+        
+    return ExtractedCase(
+        city=city,
+        employment_status=employment_status,
+    )
+    
+
+def extract_case_information(
+    user_message: str,
+    prefer_ollama : bool = True,
+) -> CaseExtractionResult:
+    if prefer_ollama:
+        try:
+            extracted = extract_case_with_ollama(user_message)
+            
+            return CaseExtractionResult (
+                **extracted.model_dump(),
+                extraction_method="ollama",
+            )
+            
+        except Exception as error:
+            warning = (
+                "Local AI extraction failed; deterministic fallback used. "
+                f"Error type: {type(error).__name__}."
+            )
+            
+    else:
+        warning = "Local AI extraction disabled; deterministic fallback used."
+        
+    extracted = extract_case_deterministically(user_message)
+    
+    return CaseExtractionResult(
+        **extracted.model_dump(),
+        extraction_method="deterministic",
+        warning=warning,
+    )

@@ -3,6 +3,7 @@ from typing import TypedDict
 from langgraph.graph import END, START, StateGraph
 
 from app.tools.benefit_tools import search_benefit_catalog
+from app.services.case_extraction_service import extract_case_information
 
 
 class CaseState(TypedDict, total=False):
@@ -12,44 +13,27 @@ class CaseState(TypedDict, total=False):
     missing_fields: list[str]
     benefit_matches: list[dict]
     response: str
+    extraction_method: str
+    extraction_warning: str | None
 
 
-NORTHERN_CITIES = [
-    "Sudbury",
-    "Thunder Bay",
-    "Timmins",
-    "North Bay",
-    "Sault Ste. Marie",
-]
+
 
 # Extraction node
 def extract_case(state: CaseState) -> dict:
-    message = state["user_message"]
-    message_lower = message.lower()
     
-    city = None
+    result = extract_case_information(
+        state["user_message"]
+    )
     
-    for known_city in NORTHERN_CITIES:
-        if known_city.lower() in message_lower:
-            city = known_city   
-            break
-        
-
-    employment_status = None
-    job_loss_phrases = [
-        "lost my job",
-        "laid off",
-        "unemployed",
-        "no longer working",
-    ]
-
-    if any(phrase in message_lower for phrase in job_loss_phrases):
-        employment_status = "unemployed"
-
     return {
-        "city": city,
-        "employment_status": employment_status,
+        "city": result.city,
+        "employment_status": result.employment_status,
+        "extraction_method": result.extraction_method,
+        "extraction_warning": result.warning,
     }
+    
+    
 #  validation node    
 def check_missing_information(state: CaseState) -> dict:
     missing_fields: list[str] = []
