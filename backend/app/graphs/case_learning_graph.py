@@ -1,5 +1,7 @@
-from typing import TypedDict
+import operator
+from typing import Annotated, TypedDict
 
+from langgraph.checkpoint.memory import InMemorySaver
 from langgraph.graph import END, START, StateGraph
 
 from app.tools.benefit_tools import search_benefit_catalog
@@ -8,6 +10,7 @@ from app.services.case_extraction_service import extract_case_information
 
 class CaseState(TypedDict, total=False):
     user_message: str
+    message_history: Annotated[list[str], operator.add]
     city: str | None
     employment_status: str | None
     missing_fields: list[str]
@@ -17,15 +20,20 @@ class CaseState(TypedDict, total=False):
     extraction_warning: str | None
 
 
+def capture_message(state: CaseState) -> dict:
+    return {
+        "message_history": [state["user_message"]],
+    }
 
 
 # Extraction node
 def extract_case(state: CaseState) -> dict:
-    
-    result = extract_case_information(
-        state["user_message"]
+    conversation = "\n".join(
+        state.get("message_history", [])
     )
     
+    result = extract_case_information(conversation)
+
     return {
         "city": result.city,
         "employment_status": result.employment_status,
@@ -61,7 +69,9 @@ def ask_clarification(state: CaseState) -> dict:
 def search_benefits(state: CaseState) -> dict:
     tool_result = search_benefit_catalog.invoke(
         {
-            "life_event": state["user_message"],
+            "life_event": "\n".join(
+                state.get("message_history", [])
+            ),
             "location": state.get("city"),
             "employment_status": state.get("employment_status"),
         }
@@ -85,14 +95,28 @@ def route_after_validation(state: CaseState) -> str:
 
     return "search_benefits"
 
+
+def reset_turn(state: CaseState) -> dict:
+    return {
+        "missing_fields": [],
+        "benefit_matches": [],
+        "response": "",
+        "extraction_warning": None,
+    }
+
+
 builder = StateGraph(CaseState)
 
 builder.add_node("extract_case", extract_case)
+builder.add_node("capture_message", capture_message)
 builder.add_node("check_missing_information", check_missing_information)
 builder.add_node("ask_clarification", ask_clarification)
 builder.add_node("search_benefits", search_benefits)
+builder.add_node("reset_turn", reset_turn)
 
-builder.add_edge(START, "extract_case")
+builder.add_edge(START, "capture_message")
+builder.add_edge("capture_message", "reset_turn")
+builder.add_edge("reset_turn", "extract_case")
 builder.add_edge("extract_case", "check_missing_information")
 
 builder.add_conditional_edges(
@@ -107,6 +131,11 @@ builder.add_conditional_edges(
 builder.add_edge("ask_clarification", END)
 builder.add_edge("search_benefits", END)
 
-case_graph = builder.compile()
+checkpointer = InMemorySaver()
+
+
+case_graph = builder.compile(
+    checkpointer=checkpointer,
+)
 
     
