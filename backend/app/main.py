@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routers import life_event, letters, resources
+from app.routers import life_event, letters, resources, cases
 
 app = FastAPI(title="NorthAssist AI API")
 
@@ -21,3 +21,4 @@ def root():
 app.include_router(life_event.router)
 app.include_router(letters.router)
 app.include_router(resources.router)
+app.include_router(cases.router)
