@@ -13,6 +13,7 @@ export default defineConfig({
         "/life-event": { target: "http://127.0.0.1:8000", changeOrigin: true },
         "/letters": { target: "http://127.0.0.1:8000", changeOrigin: true },
         "/resources": { target: "http://127.0.0.1:8000", changeOrigin: true },
+        "/cases": { target: "http://127.0.0.1:8000", changeOrigin: true },
       },
     },
   },
