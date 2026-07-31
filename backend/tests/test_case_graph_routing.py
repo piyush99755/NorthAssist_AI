@@ -56,3 +56,81 @@ def test_eligibility_question_does_not_search_benefits(
     assert result["current_intent"] == "ask_eligibility_question"
     assert result["benefit_matches"] == []
     assert "will not repeat" in result["response"]
+
+
+def test_start_new_case_does_not_search_benefits(
+    monkeypatch,
+):
+    def fake_classify_case_intent(
+        latest_message: str,
+        conversation_history: list[str] | None = None,
+    ) -> CaseIntentResult:
+        return CaseIntentResult(
+            intent="start_new_case",
+            classification_method="ollama",
+        )
+
+    monkeypatch.setattr(
+        graph_module,
+        "classify_case_intent",
+        fake_classify_case_intent,
+    )
+    monkeypatch.setattr(
+        graph_module,
+        "search_benefit_catalog",
+        FailingBenefitTool(),
+    )
+
+    config = {
+        "configurable": {
+            "thread_id": f"test-{uuid4()}",
+        }
+    }
+
+    result = graph_module.case_graph.invoke(
+        {"user_message": "Start a new case."},
+        config=config,
+    )
+
+    assert result["current_intent"] == "start_new_case"
+    assert result["benefit_matches"] == []
+    assert "new case" in result["response"].lower()
+
+
+def test_other_intent_does_not_search_benefits(
+    monkeypatch,
+):
+    def fake_classify_case_intent(
+        latest_message: str,
+        conversation_history: list[str] | None = None,
+    ) -> CaseIntentResult:
+        return CaseIntentResult(
+            intent="other",
+            classification_method="ollama",
+        )
+
+    monkeypatch.setattr(
+        graph_module,
+        "classify_case_intent",
+        fake_classify_case_intent,
+    )
+    monkeypatch.setattr(
+        graph_module,
+        "search_benefit_catalog",
+        FailingBenefitTool(),
+    )
+
+    config = {
+        "configurable": {
+            "thread_id": f"test-{uuid4()}",
+        }
+    }
+
+    result = graph_module.case_graph.invoke(
+        {"user_message": "Tell me a joke."},
+        config=config,
+    )
+
+    assert result["current_intent"] == "other"
+    assert result["benefit_matches"] == []
+    assert "I can help" in result["response"]
