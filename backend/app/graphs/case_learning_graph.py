@@ -4,8 +4,9 @@ from typing import Annotated, TypedDict
 from langgraph.checkpoint.memory import InMemorySaver
 from langgraph.graph import END, START, StateGraph
 
-from app.tools.benefit_tools import search_benefit_catalog
 from app.services.case_extraction_service import extract_case_information
+from app.services.case_intent_service import classify_case_intent
+from app.tools.benefit_tools import search_benefit_catalog
 
 
 class CaseState(TypedDict, total=False):
@@ -18,6 +19,11 @@ class CaseState(TypedDict, total=False):
     response: str
     extraction_method: str
     extraction_warning: str | None
+    current_intent: str
+    intent_subject: str | None
+    referenced_programs: list[str]
+    intent_classification_method: str
+    intent_warning: str | None
 
 
 def capture_message(state: CaseState) -> dict:
@@ -105,6 +111,23 @@ def reset_turn(state: CaseState) -> dict:
     }
 
 
+def classify_current_intent(state: CaseState) -> dict:
+    history = state.get("message_history", [])
+
+    result = classify_case_intent(
+        latest_message=state["user_message"],
+        conversation_history=history[:-1],
+    )
+
+    return {
+        "current_intent": result.intent,
+        "intent_subject": result.subject,
+        "referenced_programs": result.referenced_programs,
+        "intent_classification_method": result.classification_method,
+        "intent_warning": result.warning,
+    }
+
+
 builder = StateGraph(CaseState)
 
 builder.add_node("extract_case", extract_case)
@@ -113,9 +136,11 @@ builder.add_node("check_missing_information", check_missing_information)
 builder.add_node("ask_clarification", ask_clarification)
 builder.add_node("search_benefits", search_benefits)
 builder.add_node("reset_turn", reset_turn)
+builder.add_node("classify_intent", classify_current_intent)
 
 builder.add_edge(START, "capture_message")
-builder.add_edge("capture_message", "reset_turn")
+builder.add_edge("capture_message", "classify_intent")
+builder.add_edge("classify_intent", "reset_turn")
 builder.add_edge("reset_turn", "extract_case")
 builder.add_edge("extract_case", "check_missing_information")
 
