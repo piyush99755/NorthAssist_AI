@@ -128,6 +128,59 @@ def classify_current_intent(state: CaseState) -> dict:
     }
 
 
+def acknowledge_eligibility_question(state: CaseState) -> dict:
+    subject = state.get("intent_subject")
+    programs = state.get("referenced_programs", [])
+
+    program_text = (
+        ", ".join(programs)
+        if programs
+        else "the previously recommended program"
+    )
+
+    subject_text = (
+        f" for someone with the circumstance '{subject}'"
+        if subject
+        else ""
+    )
+
+    return {
+        "benefit_matches": [],
+        "response": (
+            f"You are asking whether {program_text} may apply"
+            f"{subject_text}. I have recognized this as an eligibility "
+            "question, so I will not repeat the broad benefit recommendations. "
+            "Grounded eligibility research is not connected yet, so I will "
+            "not make an eligibility assessment."
+        ),
+    }
+
+
+def acknowledge_new_case(state: CaseState) -> dict:
+    return {
+        "benefit_matches": [],
+        "response": (
+            "I recognized that you want to start a new case. "
+            "A new conversation identifier is required to safely separate "
+            "the new case from the current one."
+        ),
+    }
+
+
+def handle_other_intent(state: CaseState) -> dict:
+    return {
+        "benefit_matches": [],
+        "response": (
+            "I can help you describe your situation, find potentially "
+            "relevant benefits, or ask questions about a recommended program."
+        ),
+    }
+
+
+def route_after_intent(state: CaseState) -> str:
+    return state.get("current_intent", "other")
+
+
 builder = StateGraph(CaseState)
 
 builder.add_node("extract_case", extract_case)
@@ -137,11 +190,22 @@ builder.add_node("ask_clarification", ask_clarification)
 builder.add_node("search_benefits", search_benefits)
 builder.add_node("reset_turn", reset_turn)
 builder.add_node("classify_intent", classify_current_intent)
+builder.add_node(
+    "acknowledge_eligibility_question",
+    acknowledge_eligibility_question,
+)
+builder.add_node(
+    "acknowledge_new_case",
+    acknowledge_new_case,
+)
+builder.add_node(
+    "handle_other_intent",
+    handle_other_intent,
+)
 
 builder.add_edge(START, "capture_message")
 builder.add_edge("capture_message", "classify_intent")
 builder.add_edge("classify_intent", "reset_turn")
-builder.add_edge("reset_turn", "extract_case")
 builder.add_edge("extract_case", "check_missing_information")
 
 builder.add_conditional_edges(
@@ -153,8 +217,22 @@ builder.add_conditional_edges(
     },
 )
 
+builder.add_conditional_edges(
+    "reset_turn",
+    route_after_intent,
+    {
+        "provide_case_information": "extract_case",
+        "ask_eligibility_question": "acknowledge_eligibility_question",
+        "start_new_case": "acknowledge_new_case",
+        "other": "handle_other_intent",
+    },
+)
+
 builder.add_edge("ask_clarification", END)
 builder.add_edge("search_benefits", END)
+builder.add_edge("acknowledge_eligibility_question", END)
+builder.add_edge("acknowledge_new_case", END)
+builder.add_edge("handle_other_intent", END)
 
 checkpointer = InMemorySaver()
 
