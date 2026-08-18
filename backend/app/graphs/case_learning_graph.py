@@ -16,6 +16,7 @@ class CaseState(TypedDict, total=False):
     employment_status: str | None
     missing_fields: list[str]
     benefit_matches: list[dict]
+    response_type: str
     response: str
     extraction_method: str
     extraction_warning: str | None
@@ -70,7 +71,10 @@ def ask_clarification(state: CaseState) -> dict:
     }
     
     first_missing_field = missing[0]
-    return {"response": questions[first_missing_field]}
+    return {
+        "response_type": "follow_up_question",
+        "response": questions[first_missing_field],
+    }
 
 def search_benefits(state: CaseState) -> dict:
     tool_result = search_benefit_catalog.invoke(
@@ -85,6 +89,7 @@ def search_benefits(state: CaseState) -> dict:
     programs = tool_result["recommended_programs"]
     program_names = [program["name"] for program in programs]
     return {
+        "response_type": "benefit_cards",
         "benefit_matches": programs,
         "response": (
             "I found these potentially relevant programs: "
@@ -145,6 +150,7 @@ def acknowledge_eligibility_question(state: CaseState) -> dict:
     )
 
     return {
+        "response_type": "eligibility_placeholder",
         "benefit_matches": [],
         "response": (
             f"You are asking whether {program_text} may apply"
@@ -158,6 +164,7 @@ def acknowledge_eligibility_question(state: CaseState) -> dict:
 
 def acknowledge_new_case(state: CaseState) -> dict:
     return {
+        "response_type": "case_reset_required",
         "benefit_matches": [],
         "response": (
             "I recognized that you want to start a new case. "
@@ -169,13 +176,13 @@ def acknowledge_new_case(state: CaseState) -> dict:
 
 def handle_other_intent(state: CaseState) -> dict:
     return {
+        "response_type": "clarification",
         "benefit_matches": [],
         "response": (
             "I can help you describe your situation, find potentially "
             "relevant benefits, or ask questions about a recommended program."
         ),
     }
-
 
 def route_after_intent(state: CaseState) -> str:
     return state.get("current_intent", "other")

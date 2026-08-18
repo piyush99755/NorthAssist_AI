@@ -21,6 +21,7 @@ def process_case_message(
     return CaseResponse(
         thread_id=thread_id,
         response=state["response"],
+        response_type=state["response_type"],
         message_history=state.get("message_history", []),
         city=state.get("city"),
         employment_status=state.get("employment_status"),

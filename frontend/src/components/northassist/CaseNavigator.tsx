@@ -139,7 +139,7 @@ export function CaseNavigator({ onBack }: { onBack: () => void }) {
         </div>
       </form>
 
-      {caseData && caseData.benefit_matches.length > 0 && (
+      {caseData?.response_type === "benefit_cards" && caseData.benefit_matches.length > 0 && (
         <section className="mt-10">
           <div className="mb-4">
             <p className="text-sm font-medium text-primary">Trusted benefit catalogue</p>
