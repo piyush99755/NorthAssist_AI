@@ -6,6 +6,7 @@ from langgraph.graph import END, START, StateGraph
 
 from app.services.case_extraction_service import extract_case_information
 from app.services.case_intent_service import classify_case_intent
+from app.services.life_event_service import get_benefit_by_id
 from app.tools.benefit_tools import search_benefit_catalog
 
 
@@ -23,6 +24,7 @@ class CaseState(TypedDict, total=False):
     current_intent: str
     intent_subject: str | None
     referenced_programs: list[str]
+    selected_benefit_id: str | None
     intent_classification_method: str
     intent_warning: str | None
 
@@ -136,9 +138,16 @@ def classify_current_intent(state: CaseState) -> dict:
 def acknowledge_eligibility_question(state: CaseState) -> dict:
     subject = state.get("intent_subject")
     programs = state.get("referenced_programs", [])
+    selected_benefit = (
+        get_benefit_by_id(state["selected_benefit_id"])
+        if state.get("selected_benefit_id")
+        else None
+    )
 
     program_text = (
-        ", ".join(programs)
+        selected_benefit["name"]
+        if selected_benefit
+        else ", ".join(programs)
         if programs
         else "the previously recommended program"
     )

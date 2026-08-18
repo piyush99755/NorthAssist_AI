@@ -12,6 +12,7 @@ type ChatMessage = {
 
 export function CaseNavigator({ onBack }: { onBack: () => void }) {
   const [threadId, setThreadId] = useState<string | null>(null);
+  const [selectedBenefitId, setSelectedBenefitId] = useState<string | null>(null);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
@@ -36,9 +37,12 @@ export function CaseNavigator({ onBack }: { onBack: () => void }) {
     setIsLoading(true);
 
     try {
-      const result = threadId ? await continueCase(threadId, message) : await createCase(message);
+      const result = threadId
+        ? await continueCase(threadId, message, selectedBenefitId ?? undefined)
+        : await createCase(message);
 
       setThreadId(result.thread_id);
+      setSelectedBenefitId(null);
       setCaseData(result);
       setMessages((current) => [...current, { role: "assistant", content: result.response }]);
     } catch (caughtError) {
@@ -171,6 +175,17 @@ export function CaseNavigator({ onBack }: { onBack: () => void }) {
                   View official program
                   <ExternalLink className="h-4 w-4" />
                 </a>
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="mt-4 w-full"
+                  onClick={() => {
+                    setSelectedBenefitId(program.id);
+                    setInput(`Does ${program.name} apply to my situation?`);
+                  }}
+                >
+                  Ask about eligibility
+                </Button>
               </article>
             ))}
           </div>

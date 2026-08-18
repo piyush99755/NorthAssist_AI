@@ -135,4 +135,41 @@ def test_other_intent_does_not_search_benefits(
     assert result["current_intent"] == "other"
     assert result["benefit_matches"] == []
     assert "I can help" in result["response"]
-    
+
+
+def test_selected_benefit_id_controls_eligibility_context(
+    monkeypatch,
+):
+    def fake_classify_case_intent(
+        latest_message: str,
+        conversation_history: list[str] | None = None,
+    ) -> CaseIntentResult:
+        return CaseIntentResult(
+            intent="ask_eligibility_question",
+            subject="international student",
+            referenced_programs=[],
+            classification_method="ollama",
+        )
+
+    monkeypatch.setattr(
+        graph_module,
+        "classify_case_intent",
+        fake_classify_case_intent,
+    )
+    monkeypatch.setattr(
+        graph_module,
+        "search_benefit_catalog",
+        FailingBenefitTool(),
+    )
+
+    result = graph_module.case_graph.invoke(
+        {
+            "user_message": "Does this apply to international students?",
+            "selected_benefit_id": "ei-regular",
+        },
+        config={"configurable": {"thread_id": f"test-{uuid4()}"}},
+    )
+
+    assert result["selected_benefit_id"] == "ei-regular"
+    assert result["benefit_matches"] == []
+    assert "Employment Insurance (EI) Regular Benefits" in result["response"]

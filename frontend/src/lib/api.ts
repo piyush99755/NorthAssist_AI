@@ -16,6 +16,7 @@ async function handle<T>(res: Response): Promise<T> {
 }
 
 export type RecommendedProgram = {
+  id: string;
   name: string;
   description: string;
   eligibility: string;
@@ -38,6 +39,7 @@ export type CaseResponse = {
   employment_status: string | null;
   missing_fields: string[];
   benefit_matches: RecommendedProgram[];
+  selected_benefit_id: string | null;
   extraction_method: string | null;
   extraction_warning: string | null;
 };
@@ -52,11 +54,18 @@ export async function createCase(message: string): Promise<CaseResponse> {
   return handle<CaseResponse>(res);
 }
 
-export async function continueCase(threadId: string, message: string): Promise<CaseResponse> {
+export async function continueCase(
+  threadId: string,
+  message: string,
+  selectedBenefitId?: string,
+): Promise<CaseResponse> {
   const res = await fetch(`${API_BASE}/cases/${encodeURIComponent(threadId)}/messages`, {
     method: "POST",
     headers: requestHeaders(),
-    body: JSON.stringify({ message }),
+    body: JSON.stringify({
+      message,
+      selected_benefit_id: selectedBenefitId,
+    }),
   });
 
   return handle<CaseResponse>(res);

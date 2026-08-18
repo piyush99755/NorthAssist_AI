@@ -17,6 +17,14 @@ def _load_benefits() -> list[dict]:
         return json.load(f)
 
 
+def get_benefit_by_id(benefit_id: str) -> dict | None:
+    """Return a trusted benefit-catalog record by its stable identifier."""
+    return next(
+        (benefit for benefit in _load_benefits() if benefit["id"] == benefit_id),
+        None,
+    )
+
+
 def _keyword_matches(keyword: str, text: str) -> bool:
     """Match a complete word or phrase, not a substring inside another word."""
     pattern = rf"(?<!\w){re.escape(keyword.lower())}(?!\w)"
@@ -75,6 +83,7 @@ def analyze_life_event(request: LifeEventAnalyzeRequest) -> LifeEventAnalyzeResp
 
     programs = [
         RecommendedProgram(
+            id=b["id"],
             name=b["name"],
             description=b["description"],
             eligibility=b["eligibility"],

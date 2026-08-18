@@ -14,6 +14,7 @@ class LifeEventAnalyzeRequest(BaseModel):
 
 
 class RecommendedProgram(BaseModel):
+    id: str
     name: str
     description: str
     eligibility: str

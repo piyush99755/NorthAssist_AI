@@ -12,6 +12,10 @@ class CaseMessageRequest(BaseModel):
         max_length=4000,
         description="The user's situation or follow-up answer.",
     )
+    selected_benefit_id: str | None = Field(
+        default=None,
+        description="Stable catalog ID for the benefit card the user selected.",
+    )
 
 
 CaseResponseType = Literal[
@@ -32,5 +36,6 @@ class CaseResponse(BaseModel):
     employment_status: str | None = None
     missing_fields: list[str]
     benefit_matches: list[RecommendedProgram]
+    selected_benefit_id: str | None = None
     extraction_method: str | None = None
     extraction_warning: str | None = None
